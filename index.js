@@ -1,4 +1,4 @@
 // module.exports = require('./noise.js')
 
-import ng5 from './noise.js'
-export default ng5
+import NoiseGenerator from './noise.js'
+export default NoiseGenerator
