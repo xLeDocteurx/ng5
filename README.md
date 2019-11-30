@@ -1,12 +1,10 @@
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xLeDocteurx/ng5/pulls)
+
 # A noise generator inspired by the P5.js noise engine
 
 ## Features
- - SVG based
  - Light weight
- - Scalable
  - Easy to use
- - Easy to integrate with custom editor
- - Comes from [Avataaars](https://avataaars.com/)
 
 ## Installation
 ```
