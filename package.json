@@ -1,5 +1,5 @@
 {
-  "name": "ng5",
+  "name": "png5",
   "description": "A noise generator inspired by the P5.js noise engine",
   "version": "0.0.1",
   "main": "dist/index.js",
@@ -17,7 +17,7 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xLeDocteurx/vue-avataaars.git"
+    "url": "git+https://github.com/xLeDocteurx/png5.git"
   },
   "keywords": [
     "noise",
@@ -32,34 +32,10 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xLeDocteurx/vue-avataaars/issues"
+    "url": "https://github.com/xLeDocteurx/png5/issues"
   },
-  "homepage": "https://github.com/xLeDocteurx/vue-avataaars#readme",
+  "homepage": "https://github.com/xLeDocteurx/png5#readme",
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
-    "bili": "^4.8.1",
-    "eslint": "^5.16.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+    "bili": "^4.8.1"
+  }
 }
