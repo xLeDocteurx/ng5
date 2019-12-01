@@ -53,11 +53,11 @@ function () {
       y = y || 0;
       z = z || 0;
 
-      if (perlin == null) {
-        perlin = new Array(this.PERLIN_SIZE + 1);
+      if (this.perlin == null) {
+        this.perlin = new Array(this.PERLIN_SIZE + 1);
 
         for (var i = 0; i < this.PERLIN_SIZE + 1; i++) {
-          perlin[i] = Math.random();
+          this.perlin[i] = Math.random();
         }
       }
 
@@ -88,16 +88,16 @@ function () {
         var of = xi + (yi << this.PERLIN_YWRAPB) + (zi << this.PERLIN_ZWRAPB);
         rxf = this.scaled_cosine(xf);
         ryf = this.scaled_cosine(yf);
-        n1 = perlin[of & this.PERLIN_SIZE];
-        n1 += rxf * (perlin[of + 1 & this.PERLIN_SIZE] - n1);
-        n2 = perlin[of + this.PERLIN_YWRAP & this.PERLIN_SIZE];
-        n2 += rxf * (perlin[of + this.PERLIN_YWRAP + 1 & this.PERLIN_SIZE] - n2);
+        n1 = this.perlin[of & this.PERLIN_SIZE];
+        n1 += rxf * (this.perlin[of + 1 & this.PERLIN_SIZE] - n1);
+        n2 = this.perlin[of + this.PERLIN_YWRAP & this.PERLIN_SIZE];
+        n2 += rxf * (this.perlin[of + this.PERLIN_YWRAP + 1 & this.PERLIN_SIZE] - n2);
         n1 += ryf * (n2 - n1);
-        of += PERLIN_ZWRAP;
-        n2 = perlin[of & this.PERLIN_SIZE];
-        n2 += rxf * (perlin[of + 1 & this.PERLIN_SIZE] - n2);
-        n3 = perlin[of + this.PERLIN_YWRAP & this.PERLIN_SIZE];
-        n3 += rxf * (perlin[of + this.PERLIN_YWRAP + 1 & this.PERLIN_SIZE] - n3);
+        of += this.PERLIN_ZWRAP;
+        n2 = this.perlin[of & this.PERLIN_SIZE];
+        n2 += rxf * (this.perlin[of + 1 & this.PERLIN_SIZE] - n2);
+        n3 = this.perlin[of + this.PERLIN_YWRAP & this.PERLIN_SIZE];
+        n3 += rxf * (this.perlin[of + this.PERLIN_YWRAP + 1 & this.PERLIN_SIZE] - n3);
         n2 += ryf * (n3 - n2);
         n1 += this.scaled_cosine(zf) * (n2 - n1);
         r += n1 * ampl;
@@ -173,10 +173,10 @@ function () {
       }();
 
       lcg.setSeed(seed);
-      perlin = new Array(this.PERLIN_SIZE + 1);
+      this.perlin = new Array(this.PERLIN_SIZE + 1);
 
       for (var i = 0; i < this.PERLIN_SIZE + 1; i++) {
-        perlin[i] = lcg.rand();
+        this.perlin[i] = lcg.rand();
       }
     }
   }]);
