@@ -1,7 +1,8 @@
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xLeDocteurx/ng5/pulls)
-[![GitHub](https://img.shields.io/github/license/xLeDocteurx/ng5)](https://github.com/xLeDocteurx/ng5/pulls)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xLeDocteurx/png5/pulls)
+[![GitHub](https://img.shields.io/github/license/xLeDocteurx/png5)](https://github.com/xLeDocteurx/png5/pulls)
 
 # A noise generator inspired by the P5.js noise engine
+png5 stands for perlin noise generator
 
 ## Features
  - Light weight
@@ -9,7 +10,7 @@
 
 ## Installation
 ```
-npm install ng5 --save (not on npm yet)
+npm install png5 --save (not on npm yet)
 ```
 
 ## Usage
@@ -17,7 +18,7 @@ npm install ng5 --save (not on npm yet)
 - Using the generator with Node :
 ```javascript
 // Import
-const NoiseGenerator = require('ng5')
+const NoiseGenerator = require('png5')
 
 // Initialize and config at the same time
 const myNoiseMachine = new NoiseGenerator({
