@@ -1,0 +1,12 @@
+.sketch {
+  /* border: 3px solid black; */
+  text-align: center;
+  /*display: inline;*/
+  /*margin: 25px;*/
+}
+
+.left-form {
+  /* display: inline-block; */
+  /* position: sticky; */
+  position: fixed;
+}

@@ -1,8 +1,17 @@
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/xLeDocteurx/png5)](https://www.npmjs.com/package/png5)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xLeDocteurx/png5/pulls)
 [![GitHub](https://img.shields.io/github/license/xLeDocteurx/png5)](https://github.com/xLeDocteurx/png5/pulls)
 
 # A noise generator inspired by the P5.js noise engine
-png5 stands for perlin noise generator
+png5 stands for perlin noise generator but it does not provide only perlin noise !
+
+- Undetermined random
+- Determined random
+- White noise
+~~- Pink noise~~
+- Perlin noise
+~~- Brownian noise~~
+~~- Cellular noise~~
 
 ## Features
  - Light weight
@@ -10,7 +19,7 @@ png5 stands for perlin noise generator
 
 ## Installation
 ```
-npm install png5 --save (not on npm yet)
+npm install png5 --save
 ```
 
 ## Usage
@@ -35,14 +44,14 @@ myNoiseMachine.setSeed('seed')
 // By default the noise generator noise detail lod is set to 4 and falloff to  0.5
 // If no seed is provided, the generator will use a random string
 
-// Get a 1D noise
-const noise1D = myNoiseMachine.getNoise(x)
+// Get a 1D noise at index x
+const noise1D = myNoiseMachine.getPerlinNoise(x)
 
-// Get a 2D noise
-const noise2D = myNoiseMachine.getNoise(x,y)
+// Get a 2D noise at x,y coordinates
+const noise2D = myNoiseMachine.getPerlinNoise(x,y)
 
-// Get a 3D noise
-const noise3D = myNoiseMachine.getNoise(x,y,z)
+// Get a 3D noise at x,y,z coordinates
+const noise3D = myNoiseMachine.getPerlinNoise(x,y,z)
 ```
 <!-- 
 - Using the generator without Node :
@@ -63,7 +72,20 @@ const noise3D = myNoiseMachine.getNoise(x,y,z)
 ## Methods of the noise generator class
 
 ```javascript
-getNoise(x, [y], [z])
+random([x])
+```
+    x / Number: x-coordinate in noise space (Optional)
+    If no parameter is passed to the function it return an undetermined random number
+
+```javascript
+getWhiteNoise(x, [y], [z])
+```
+    x / Number: x-coordinate in noise space
+    y / Number: y-coordinate in noise space (Optional)
+    z / Number: z-coordinate in noise space (Optional)
+
+```javascript
+getPerlinNoise(x, [y], [z])
 ```
     x / Number: x-coordinate in noise space
     y / Number: y-coordinate in noise space (Optional)
