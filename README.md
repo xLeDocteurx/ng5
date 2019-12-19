@@ -8,10 +8,10 @@ png5 stands for perlin noise generator but it does not provide only perlin noise
 - Undetermined random
 - Determined random
 - White noise
-~~- Pink noise~~
+- ~~Pink noise~~
 - Perlin noise
-~~- Brownian noise~~
-~~- Cellular noise~~
+- ~~Brownian noise~~
+- ~~Cellular noise~~
 
 ## Features
  - Light weight
