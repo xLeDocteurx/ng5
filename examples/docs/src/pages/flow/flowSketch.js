@@ -81,13 +81,15 @@ export default (p5) => {
 	}
 
 	p5.draw = function() {
-        if(p5.data && p5.data !== prevData) {
-        	// console.log('NEW DATA §!!!', p5.data.particlesNumberValue)
-            initParticles()
-            prevData = p5.data
-        }
 
-        drawFrame()
+        if(p5.data) {
+	        if(p5.data !== prevData) {
+	        	// console.log('NEW DATA §!!!', p5.data.particlesNumberValue)
+	            initParticles()
+	            prevData = p5.data
+	        }
+        	drawFrame()
+        }
 		
 		// console.log('frameRate : ', p5.floor(p5.frameRate()))
 
@@ -152,7 +154,9 @@ export default (p5) => {
 	  	const computedHeight = parentWidth * (9/16)
 	  	p5.resizeCanvas(parentWidth, computedHeight)
 
-	  	initParticles()
+        if(p5.data) {
+	  		initParticles()
+	  	}
 	}
 	p5.windowResized = function() {
 	  	resizeCanvas()

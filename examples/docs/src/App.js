@@ -19,6 +19,8 @@ import Flow from './pages/flow/Flow'
 
 function App() {
 
+  const urlPrefix = '/png5'
+
   useEffect(() => {
       M.AutoInit()
   }, [])
@@ -41,7 +43,7 @@ function App() {
   function getNavLinks() {
     return links.map((link, linkIndex) => (
       <li key={linkIndex}>
-        <Link to={link.to}>{link.name}</Link>
+        <Link to={urlPrefix + link.to}>{link.name}</Link>
       </li>
     ))
   }
@@ -54,7 +56,7 @@ function App() {
 
           <nav className="nav-extended">
             <div className="nav-wrapper">
-              <Link to="/" className="brand-logo right"><i className="material-icons">cloud</i>png5</Link>
+              <Link to={urlPrefix + "/"} className="brand-logo right"><i className="material-icons">cloud</i>png5</Link>
               <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
 
               <ul id="nav-mobile" className="left hide-on-med-and-down">
@@ -74,42 +76,47 @@ function App() {
         </header>
 
         <Switch>
-          <Route path="/random">
+          <Route path={urlPrefix + "/random"}>
             <Random />
           </Route>
-          <Route path="/white-noise">
+          <Route path={urlPrefix + "/white-noise"}>
             <White />
           </Route>
-          <Route path="/pink-noise">
+          <Route path={urlPrefix + "/pink-noise"}>
             <h1>Pink Noise</h1>
           </Route>
-          <Route path="/simplex-noise">
+          <Route path={urlPrefix + "/simplex-noise"}>
             <h1>Simplex Noise</h1>
           </Route>
-          <Route path="/perlin-noise">
+          <Route path={urlPrefix + "/perlin-noise"}>
             <Perlin />
           </Route>
-          <Route path="/brownian-noise">
+          <Route path={urlPrefix + "/brownian-noise"}>
             <h1>Brownian Noise</h1>
           </Route>
 
-          <Route path="/diamond-square">
+          <Route path={urlPrefix + "/diamond-square"}>
             <h1>Diamond square</h1>
           </Route>
-          <Route path="/power-law-noise">
+          <Route path={urlPrefix + "/power-law-noise"}>
             <h1>Power-law noise</h1>
           </Route>
-          <Route path="/uber-noise">
+          <Route path={urlPrefix + "/uber-noise"}>
             <h1>Uber noise</h1>
           </Route>
 
-          <Route path="/flow-field">
+          <Route path={urlPrefix + "/flow-field"}>
             <Flow />
           </Route>
-          <Route path="/cellular-noise">
+          <Route path={urlPrefix + "/cellular-noise"}>
             <h1>Cellular Noise</h1>
           </Route>
-          <Route path="/*">
+
+          <Route path={"/" || urlPrefix}>
+            <h1>Welcome</h1>
+          </Route>
+          
+          <Route path={urlPrefix + "/*"}>
             404
           </Route>
         </Switch>
