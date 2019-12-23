@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d docs",
     "build-bundle": "npx bili && npx bili --out-dir ./examples/docs/src/dist",
     "build-bundle-modules": "npx bili --bundle-node-modules && npx bili --bundle-node-modules --out-dir ./examples/docs/src/dist"
   },
@@ -15,9 +16,7 @@
     "*.json",
     "*.js"
   ],
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xLeDocteurx/png5.git"
@@ -39,6 +38,7 @@
   },
   "homepage": "https://github.com/xLeDocteurx/png5#readme",
   "devDependencies": {
-    "bili": "^4.8.1"
+    "bili": "^4.8.1",
+    "gh-pages": "^2.1.1"
   }
 }
