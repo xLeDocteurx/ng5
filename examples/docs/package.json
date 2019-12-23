@@ -16,7 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build-and-move": "npm run build && sudo rm -rf ../../docs && mv build ../../docs",
-    "deploy": "gh-pages -d ./",
+    "deploy": "gh-pages -d ../../docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
