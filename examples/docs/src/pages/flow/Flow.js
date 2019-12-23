@@ -88,7 +88,8 @@ class White extends Component {
                         <div className="card grey lighten-4">
                             <div className="card-content">
                                 <div className="card-title">
-                                    <span className="switch">
+                                    Noise
+                                    <span className="toggle-switch switch">
                                         <label>
                                             Hide
                                             <input name="showNoise" type="checkbox" className="filled-in" onChange={this.handleCheckboxChange} defaultChecked={this.state.showNoise} />
@@ -96,9 +97,8 @@ class White extends Component {
                                             Show
                                         </label>
                                     </span>
-                                    Noise
                                 </div>
-                                {this.state.showNoise ? (
+                                {/* {this.state.showNoise ? ( */}
                                     <Fragment>
                                         <label>
                                             Seed :
@@ -117,31 +117,23 @@ class White extends Component {
                                             value={this.state.noiseScaleValue} onChange={this.handleChange}
                                             min="0.01" max="1" step="0.01" />
                                         </label>
-                                        <label>
+                                        {/* <label>
                                             noise app coef ({this.state.noiseAppCoefValue}) :
                                             <input type="range" name="noiseAppCoefValue" 
                                             value={this.state.noiseAppCoefValue} onChange={this.handleChange}
                                             min="0.01" max="1" step="0.01" />
-                                        </label>
+                                        </label> */}
                                     </Fragment>
-                                ) : null}
+                                {/* }) : null} */}
                             </div>
                         </div>
 
                         <div className="card grey lighten-4">
                             <div className="card-content">
                                 <div className="card-title">
-                                    <span className="switch">
-                                        <label>
-                                            Hide
-                                            <input name="showParticles" type="checkbox" className="filled-in" onChange={this.handleCheckboxChange} defaultChecked={this.state.showParticles} />
-                                            <span className="lever"></span>
-                                            Show
-                                        </label>
-                                    </span>
                                     Particles
                                 </div>
-                                {this.state.showParticles ? (
+                                {/* {this.state.showParticles ? ( */}
                                     <Fragment>
                                         <label>
                                             particles number ({this.state.particlesNumberValue}) :
@@ -174,7 +166,7 @@ class White extends Component {
                                             min="0.01" max="20" step="0.01" />
                                         </label>
                                     </Fragment>
-                                ) : null}
+                                {/* }) : null} */}
                             </div>
                         </div>
 

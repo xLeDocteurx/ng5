@@ -29,7 +29,8 @@ export default (p5) => {
 			this.velocity = p5.createVector(0, 0)
 			this.acceleration = p5.createVector(0, 0)
 
-			// this.color = p5.color(Math.random() * 255, Math.random() * 255, Math.random() * 255)
+			this.color = p5.color(Math.random() * 255, Math.random() * 255, Math.random() * 255)
+			this.color.setAlpha(p5.data.alphaValue)
 		}
 
 		update() {
@@ -52,6 +53,7 @@ export default (p5) => {
 		}
 
 		draw() {
+			// p5.stroke(this.color)
 			p5.stroke(particlesColor)
 			p5.strokeWeight(p5.data.particlesStrokeWeightValue)
 			p5.point(this.position.x, this.position.y)

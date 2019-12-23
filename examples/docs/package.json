@@ -2,7 +2,7 @@
   "name": "noises-exemples",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://xLeDocteurx.github.io/png5",
+  "homepage": "http://xLeDocteurx.github.io/png5",
   "dependencies": {
     "materialize-css": "^1.0.0-rc.2",
     "p5": "^0.10.2",
@@ -14,7 +14,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv build ../../docs",
+    "build": "react-scripts build",
+    "build-and-move": "npm run build && sudo rm -rf ../../docs && mv build ../../docs",
+    "deploy": "gh-pages -d ./",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -32,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
   }
 }

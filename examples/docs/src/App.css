@@ -11,3 +11,8 @@
   /*position: fixed;*/
   /*overflow: scroll;*/
 }
+
+.toggle-switch {
+	position: absolute;
+	right: 35px;
+}
