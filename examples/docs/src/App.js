@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link
@@ -19,7 +20,8 @@ import Flow from './pages/flow/Flow'
 
 function App() {
 
-  const urlPrefix = '/png5'
+  // const urlPrefix = '/png5'
+  const urlPrefix = ''
 
   useEffect(() => {
       M.AutoInit()
@@ -49,7 +51,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/">
       <div className="App">
 
         <header>
