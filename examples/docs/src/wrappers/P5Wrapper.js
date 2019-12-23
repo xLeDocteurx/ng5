@@ -9,6 +9,7 @@ class P5Wrapper extends Component {
 
         this.state = {
             canvas: null,
+            // classes: p5,
             // canvas: new p5(this.props.sketch, this.el),
         }
 
@@ -30,6 +31,7 @@ class P5Wrapper extends Component {
 
     doesComponentReceivedData() {
         this.state.canvas.data = this.props.data ? this.props.data : null
+        // this.state.canvas.classes = this.state.classes ? this.state.classes : null
 
         // const dataObject = {data: this.props.data}
 

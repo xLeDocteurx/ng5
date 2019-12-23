@@ -16,7 +16,9 @@ class Perlin extends Component {
 
             // scaleValue: 1,
             scaleValue: 0.3,
-            divisionValue: 48,
+            divisionValue: 64,
+            offsetValue: 0,
+
             seedValue: 'seed',
             lodValue: 4,
             falloffValue: 0.5,
@@ -78,36 +80,48 @@ class Perlin extends Component {
 
                 <div className="row">
                     <div className="col s3 left-form">
-                        <label>
-                            scale ({this.state.scaleValue}) :
-                            <input type="range" name="scaleValue" 
-                            value={this.state.scaleValue} onChange={this.handleChange}
-                            min="0.01" max="1" step="0.01" />
-                        </label>
-                        <label>
-                            divisions ({this.state.divisionValue}) :
-                            <input type="range" name="divisionValue" 
-                            value={this.state.divisionValue} onChange={this.handleChange}
-                            min="2" max="128" step="1" />
-                        </label>
-                        <label>
-                            Seed :
-                            <input type="text" value={this.state.seedValue} onChange={this.handleChange} name="seedValue"></input>
-                            {/* <input type="number" value={this.state.seedValue} onChange={this.handleChange} name="seedValue"></input> */}
-                        </label>
-                        <label>
-                            lod ({this.state.lodValue}) :
-                            <input type="range" name="lodValue" 
-                            value={this.state.lodValue} onChange={this.handleChange}
-                            min="1" max="8" step="1" />
-                        </label>
-                        <label>
-                            falloff ({this.state.falloffValue}) :
-                            <input type="range" name="falloffValue" 
-                            value={this.state.falloffValue} onChange={this.handleChange}
-                            min="0.01" max="1" step="0.01" />
-                        </label>
-                        {/* <button>Generate</button> */}
+
+                        <div className="card-panel grey lighten-4">
+                            <label>
+                                scale ({this.state.scaleValue}) :
+                                <input type="range" name="scaleValue" 
+                                value={this.state.scaleValue} onChange={this.handleChange}
+                                min="0.01" max="1" step="0.01" />
+                            </label>
+                            <label>
+                                divisions ({this.state.divisionValue}) :
+                                <input type="range" name="divisionValue" 
+                                value={this.state.divisionValue} onChange={this.handleChange}
+                                min="2" max="192" step="1" />
+                            </label>
+                            <label>
+                                Offset ({this.state.offsetValue}) :
+                                <input type="range" name="offsetValue" 
+                                value={this.state.offsetValue} onChange={this.handleChange}
+                                min="-1" max="1" step="0.01" />
+                            </label>
+                        </div>
+
+                        <div className="card-panel grey lighten-4">
+                            <label>
+                                Seed :
+                                <input type="text" value={this.state.seedValue} onChange={this.handleChange} name="seedValue"></input>
+                                {/* <input type="number" value={this.state.seedValue} onChange={this.handleChange} name="seedValue"></input> */}
+                            </label>
+                            <label>
+                                lod ({this.state.lodValue}) :
+                                <input type="range" name="lodValue" 
+                                value={this.state.lodValue} onChange={this.handleChange}
+                                min="1" max="8" step="1" />
+                            </label>
+                            <label>
+                                falloff ({this.state.falloffValue}) :
+                                <input type="range" name="falloffValue" 
+                                value={this.state.falloffValue} onChange={this.handleChange}
+                                min="0.01" max="1" step="0.01" />
+                            </label>
+                            {/* <button>Generate</button> */}
+                        </div>
                     </div>
 
                     <div className="col s3">
@@ -129,6 +143,7 @@ class Perlin extends Component {
                         <h3>1D noise</h3>
                         <P5 sketch={this.state.noise1DSketch}
                             data={{
+                                offsetValue: this.state.offsetValue,
                                 noiseScaleValue: this.state.scaleValue,
                                 divisionValue: this.state.divisionValue,
                                 getNoise: (x,y,z) => this.state.noiseGenerator.getPerlinNoise(x,y,z)
@@ -137,12 +152,13 @@ class Perlin extends Component {
                         <h3>2D noise</h3>
                         <P5 sketch={this.state.noise2DSketch} 
                             data={{
+                                offsetValue: this.state.offsetValue,
                                 noiseScaleValue: this.state.scaleValue,
                                 divisionValue: this.state.divisionValue,
                                 getNoise: (x,y,z) => this.state.noiseGenerator.getPerlinNoise(x,y,z)
                             }}
                         />
-                        <h3>3D noise</h3>
+                        {/* <h3>3D noise</h3> */}
                     </div>
                 </div>
 

@@ -10,22 +10,31 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 import 'materialize-css/dist/css/materialize.min.css'
 import './App.css'
 
+import P5 from './wrappers/P5Wrapper'
+
 import Random from './pages/random/Random'
 import White from './pages/white/White'
 import Perlin from './pages/perlin/Perlin'
+import Flow from './pages/flow/Flow'
 
 function App() {
 
   useEffect(() => {
       M.AutoInit()
   }, [])
-
   const links = [
     {to: "/random", name: "Random"},
     {to: "/white-noise", name: "White Noise"},
     // {to: "/pink-noise", name: "Pink Noise"},
+    // {to: "/simplex-noise", name: "Simplex Noise"},
     {to: "/perlin-noise", name: "Perlin Noise"},
     // {to: "/brownian-noise", name: "Brownian Noise"},
+
+    // {to: "/diamond-square", name: "Diamond square"},
+    // {to: "/power-law-noise", name: "Power-law noise"},
+    // {to: "/uber-noise", name: "Uber noise"},
+
+    {to: "/flow-field", name: "Flow field"},
     // {to: "/cellular-noise", name: "Cellular Noise"},
   ]
 
@@ -74,11 +83,28 @@ function App() {
           <Route path="/pink-noise">
             <h1>Pink Noise</h1>
           </Route>
+          <Route path="/simplex-noise">
+            <h1>Simplex Noise</h1>
+          </Route>
           <Route path="/perlin-noise">
             <Perlin />
           </Route>
           <Route path="/brownian-noise">
             <h1>Brownian Noise</h1>
+          </Route>
+
+          <Route path="/diamond-square">
+            <h1>Diamond square</h1>
+          </Route>
+          <Route path="/power-law-noise">
+            <h1>Power-law noise</h1>
+          </Route>
+          <Route path="/uber-noise">
+            <h1>Uber noise</h1>
+          </Route>
+
+          <Route path="/flow-field">
+            <Flow />
           </Route>
           <Route path="/cellular-noise">
             <h1>Cellular Noise</h1>

@@ -2,6 +2,7 @@
   "name": "noises-exemples",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://xLeDocteurx.github.io/png5",
   "dependencies": {
     "materialize-css": "^1.0.0-rc.2",
     "p5": "^0.10.2",

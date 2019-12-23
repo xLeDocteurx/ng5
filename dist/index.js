@@ -22,6 +22,43 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+function fract(input) {
+  input = this.makePositive(input);
+  var integer = Math.floor(input);
+  var decimal = input - integer;
+  return decimal;
+}
+
+function normalizeSeed(seed) {
+  if (typeof seed != 'number') {
+    seed = Number(seed.split('').map(function (_char) {
+      return _char.charCodeAt(0);
+    }).join(''));
+  }
+
+  return seed;
+}
+
+function makePositive(input) {
+  return input < 0 ? -input : input;
+}
+
+function smoothStep(f) {
+  return f * f * (3.0 - 2.0 * f);
+}
+
+function scaled_cosine(i) {
+  return 0.5 * (1.0 - Math.cos(i * Math.PI));
+}
+
+var utils = {
+  fract: fract,
+  normalizeSeed: normalizeSeed,
+  makePositive: makePositive,
+  smoothStep: smoothStep,
+  scaled_cosine: scaled_cosine
+};
+
 var NoiseGenerator =
 /*#__PURE__*/
 function () {
@@ -73,49 +110,14 @@ function () {
   _createClass(NoiseGenerator, [{
     key: "random",
     value: function random(x, y, z) {
-      x = x ? this.normalizeSeed(x) : Math.random();
-      y = y ? this.normalizeSeed(y) : 0;
-      z = z ? this.normalizeSeed(z) : 0;
-      x = this.makePositive(x);
-      y = this.makePositive(y);
-      z = this.makePositive(z);
-      var output = this.fract(Math.sin(x) * 100000.0);
+      x = x ? utils.normalizeSeed(x) : Math.random();
+      y = y ? utils.normalizeSeed(y) : 0;
+      z = z ? utils.normalizeSeed(z) : 0;
+      x = utils.makePositive(x);
+      y = utils.makePositive(y);
+      z = utils.makePositive(z);
+      var output = utils.fract(Math.sin(x) * 100000.0);
       return output;
-    } // UTILS FUNCTIONS
-
-  }, {
-    key: "fract",
-    value: function fract(input) {
-      input = this.makePositive(input);
-      var integer = Math.floor(input);
-      var decimal = input - integer;
-      return decimal;
-    }
-  }, {
-    key: "normalizeSeed",
-    value: function normalizeSeed(seed) {
-      if (typeof seed != 'number') {
-        seed = Number(seed.split('').map(function (_char) {
-          return _char.charCodeAt(0);
-        }).join(''));
-      }
-
-      return seed;
-    }
-  }, {
-    key: "makePositive",
-    value: function makePositive(input) {
-      return input < 0 ? -input : input;
-    }
-  }, {
-    key: "smoothStep",
-    value: function smoothStep(f) {
-      return f * f * (3.0 - 2.0 * f);
-    }
-  }, {
-    key: "scaled_cosine",
-    value: function scaled_cosine(i) {
-      return 0.5 * (1.0 - Math.cos(i * Math.PI));
     } // WHITE NOISE
 
   }, {
@@ -123,14 +125,24 @@ function () {
     value: function getWhiteNoise(x, y, z) {
       x = x || Math.random();
       y = y || 0;
-      z = z || 0;
-      var xi = Math.floor(this.makePositive(x));
-      var yi = Math.floor(this.makePositive(y));
-      var zi = Math.floor(this.makePositive(z));
-      var xf = this.fract(x);
-      var yf = this.fract(y);
-      var zf = this.fract(z);
-      var rxf, ryf;
+      z = z || 0; // let vector = null
+      // if(x && y && z) {
+      //   vector  = new vectors.Vect3(x, y, z)
+      // } else if (x && y) {
+      //   vector = new vectors.Vect2(x, y)
+      // } else if (x) {
+      //   vector = this.random()
+      // } else {
+      //   vector = 'WTF'
+      // }
+      // console.log('vector : ', vector)
+
+      var xi = Math.floor(utils.makePositive(x));
+      var yi = Math.floor(utils.makePositive(y));
+      var zi = Math.floor(utils.makePositive(z));
+      var xf = utils.fract(x);
+      var yf = utils.fract(y);
+      var zf = utils.fract(z);
 
       if (this.noise == null) {
         this.noise = new Array(this.NOISE_SIZE + 1);
@@ -144,13 +156,11 @@ function () {
       var r = 0;
       var n1, n2, n3;
       var of = xi + (yi << this.NOISE_YWRAPB) + (zi << this.NOISE_ZWRAPB);
-      rxf = this.scaled_cosine(xf);
-      ryf = this.scaled_cosine(yf);
       n1 = this.noise[of & this.NOISE_SIZE];
       n2 = this.noise[of + this.NOISE_YWRAP & this.NOISE_SIZE];
       of += this.NOISE_ZWRAP;
       n3 = this.noise[of + this.NOISE_YWRAP & this.NOISE_SIZE];
-      n1 += this.scaled_cosine(zf) * (n2 - n1); // r += n1 * ampl
+      n1 += utils.scaled_cosine(zf) * (n2 - n1); // r += n1 * ampl
 
       r += n1;
       return r;
@@ -177,9 +187,9 @@ function () {
         }
       }
 
-      x = this.makePositive(x);
-      y = this.makePositive(y);
-      z = this.makePositive(z);
+      x = utils.makePositive(x);
+      y = utils.makePositive(y);
+      z = utils.makePositive(z);
       var xi = Math.floor(x),
           yi = Math.floor(y),
           zi = Math.floor(z);
@@ -193,8 +203,8 @@ function () {
 
       for (var o = 0; o < this.perlin_octaves; o++) {
         var of = xi + (yi << this.NOISE_YWRAPB) + (zi << this.NOISE_ZWRAPB);
-        rxf = this.scaled_cosine(xf);
-        ryf = this.scaled_cosine(yf);
+        rxf = utils.scaled_cosine(xf);
+        ryf = utils.scaled_cosine(yf);
         n1 = this.noise[of & this.NOISE_SIZE];
         n1 += rxf * (this.noise[of + 1 & this.NOISE_SIZE] - n1);
         n2 = this.noise[of + this.NOISE_YWRAP & this.NOISE_SIZE];
@@ -206,7 +216,7 @@ function () {
         n3 = this.noise[of + this.NOISE_YWRAP & this.NOISE_SIZE];
         n3 += rxf * (this.noise[of + this.NOISE_YWRAP + 1 & this.NOISE_SIZE] - n3);
         n2 += ryf * (n3 - n2);
-        n1 += this.scaled_cosine(zf) * (n2 - n1);
+        n1 += utils.scaled_cosine(zf) * (n2 - n1);
         r += n1 * ampl;
         ampl *= this.perlin_amp_falloff;
         xi <<= 1;
@@ -249,7 +259,7 @@ function () {
     key: "setNoiseSeed",
     value: function setNoiseSeed(seed) {
       this.seed = seed;
-      seed = this.normalizeSeed(seed); // pick a random seed if seed is undefined or null
+      seed = utils.normalizeSeed(seed); // pick a random seed if seed is undefined or null
       // the >>> 0 casts the seed to an unsigned 32-bit integer
 
       this.computedSeed = this.lcg.z = (seed == null ? Math.random() * this.lcg.m : seed) >>> 0;

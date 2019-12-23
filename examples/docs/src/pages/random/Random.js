@@ -31,10 +31,7 @@ class Random extends Component {
 
                 <div className="row">
                     <div className="col s3 left-form">
-
                     </div>
-    
-                    <div className="col s3"></div>
                     
                     <div className="col s9">
                         <h3>Undetermined Random</h3>

@@ -24,7 +24,7 @@ export default (p5) => {
         p5.noStroke()
         for (var x = 0; x < p5.width; x += rectSize) {
             for (var y = 0; y < p5.height; y += rectSize) {
-              p5.fill(p5.data.getNoise(x * p5.data.noiseScaleValue * scale, y * p5.data.noiseScaleValue * scale) * 255)
+              p5.fill(p5.data.getNoise(x * p5.data.noiseScaleValue * scale, y * p5.data.noiseScaleValue * scale) * 255 + p5.data.offsetValue * 255)
               p5.rect(x, y, rectSize, rectSize)
             }
         }
