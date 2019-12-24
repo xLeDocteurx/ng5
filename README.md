@@ -101,4 +101,5 @@ setNoiseDetail(lod, falloff)
 ```javascript
 setNoiseSeed(seed)
 ```
-    seed / Number: the seed value
+    seed / Number or String: the seed value
+    String inputs are converted to binary to serve as a Number input for the algorythms

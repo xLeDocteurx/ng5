@@ -5,6 +5,7 @@ import PNG5 from '../../dist/index'
 import P5 from '../../wrappers/P5Wrapper'
 import noise1DSketch from './noise1DSketch'
 import noise2DSketch from './noise2DSketch'
+import noise3DSketch from './noise3DSketch'
 
 class Perlin extends Component {
 
@@ -13,6 +14,8 @@ class Perlin extends Component {
         
         this.state = {
             noiseGenerator: new PNG5(),
+
+            // meshSize: 200,
 
             // scaleValue: 1,
             scaleValue: 0.3,
@@ -25,6 +28,7 @@ class Perlin extends Component {
             
             noise1DSketch: noise1DSketch,
             noise2DSketch: noise2DSketch,
+            noise3DSketch: noise3DSketch,
         }
 
         this.state.noiseGenerator.setNoiseSeed(this.state.seedValue)
@@ -130,6 +134,10 @@ class Perlin extends Component {
                         {this.state.noiseGenerator.getPerlinNoise()}<br/>
                         <code>getPerlinNoise(1)</code>
                         {this.state.noiseGenerator.getPerlinNoise(1)}<br/>
+                        <code>getWhiteNoise(1, 2)</code>
+                        {this.state.noiseGenerator.getWhiteNoise(1, 2)}<br/>
+                        <code>getWhiteNoise(1, 2, 3)</code>
+                        {this.state.noiseGenerator.getWhiteNoise(1, 2, 3)}<br/>
                         <code>getPerlinNoise(45.7098)</code>
                         {this.state.noiseGenerator.getPerlinNoise(45.7098)}<br/>
                         <code>getPerlinNoise(-45.7098)</code>
@@ -155,7 +163,15 @@ class Perlin extends Component {
                                 getNoise: (x,y,z) => this.state.noiseGenerator.getPerlinNoise(x,y,z)
                             }}
                         />
-                        {/* <h3>3D noise</h3> */}
+                        <h3>3D noise</h3>
+                        <P5 sketch={this.state.noise3DSketch} 
+                            data={{
+                                offsetValue: this.state.offsetValue,
+                                noiseScaleValue: this.state.scaleValue,
+                                divisionValue: this.state.divisionValue,
+                                getNoise: (x,y,z) => this.state.noiseGenerator.getPerlinNoise(x,y,z)
+                            }}
+                        />
                     </div>
                 </div>
 
