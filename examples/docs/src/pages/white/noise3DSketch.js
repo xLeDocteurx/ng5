@@ -83,7 +83,7 @@ export default (p5) => {
 
             // p5.noStroke();
             // p5.normalMaterial();
-            
+
             p5.directionalLight(255, 255, 255, -1, -1, 0);
             p5.ambientMaterial(250);
             
@@ -111,7 +111,7 @@ export default (p5) => {
     p5.setup = function() {
         canvas = p5.createCanvas(0,0, p5.WEBGL)
         resizeCanvas()
-        initMesh()
+        // initMesh()
         // drawFrame()
     }
 
@@ -123,7 +123,7 @@ export default (p5) => {
   
     p5.draw = function() {
         if(p5.data && p5.data !== prevData) {
-            initMesh()
+            // initMesh()
             drawFrame()
             prevData = p5.data
         }
@@ -133,6 +133,8 @@ export default (p5) => {
     }
 
     function drawFrame() {
+
+        initMesh()
 
         p5.background(51)
 

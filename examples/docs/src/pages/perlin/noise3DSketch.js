@@ -75,7 +75,7 @@ export default (p5) => {
         draw() {
 
             // p5.fill(200);
-            p5.stroke(0);
+            // p5.stroke(127);
             // p5.noStroke();
 
             // p5.noFill();
@@ -84,7 +84,7 @@ export default (p5) => {
 
             // p5.noStroke();
             // p5.normalMaterial();
-            
+
             p5.directionalLight(255, 255, 255, -1, -1, 0);
             p5.ambientMaterial(250);
 
@@ -124,7 +124,7 @@ export default (p5) => {
   
     p5.draw = function() {
         if(p5.data && p5.data !== prevData) {
-            initMesh()
+            // initMesh()
             drawFrame()
             prevData = p5.data
         }
@@ -134,6 +134,8 @@ export default (p5) => {
     }
 
     function drawFrame() {
+
+        initMesh()
 
         p5.background(51)
 
