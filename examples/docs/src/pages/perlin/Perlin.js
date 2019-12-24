@@ -124,9 +124,6 @@ class Perlin extends Component {
                         </div>
                     </div>
 
-                    <div className="col s3">
-                    </div>
-    
                     <div className="col s9">
                         <h3>Determined Random</h3>
                         <code>getPerlinNoise()</code>

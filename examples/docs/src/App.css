@@ -7,7 +7,9 @@
 
 .left-form {
   /* display: inline-block; */
-  /* position: sticky; */
+  /*position: -webkit-sticky;*/
+  position: sticky;
+  top: 5px; 
   /*position: fixed;*/
   /*overflow: scroll;*/
 }

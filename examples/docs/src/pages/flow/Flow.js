@@ -171,7 +171,6 @@ class White extends Component {
                         </div>
 
                         <div className="card grey lighten-4">
-                        {this.state.startSimulation == true ? 'true' : 'false'}
                             <div className="card-content">
                                 <button onClick={this.handleStart}>Launch simulation</button>
                             </div>
