@@ -1,6 +1,6 @@
 export default (p5) => {
     let canvas = null
-    const scale = 10
+    const scale = 5
     const noiseHeight = 100
 
     let prevData = null
@@ -83,6 +83,9 @@ export default (p5) => {
 
             // p5.noStroke();
             // p5.normalMaterial();
+            
+            p5.directionalLight(255, 255, 255, -1, -1, 0);
+            p5.ambientMaterial(250);
             
             p5.push();
 

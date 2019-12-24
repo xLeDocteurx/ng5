@@ -1,6 +1,6 @@
 export default (p5) => {
     let canvas = null
-    const scale = 0.2
+    const scale = 0.5
     const noiseHeight = 100
 
     let prevData = null
@@ -80,10 +80,14 @@ export default (p5) => {
 
             // p5.noFill();
             // p5.stroke(255);
+            // p5.ambientLight(150);
 
             // p5.noStroke();
             // p5.normalMaterial();
             
+            p5.directionalLight(255, 255, 255, -1, -1, 0);
+            p5.ambientMaterial(250);
+
             p5.push();
 
             const sliceSize = p5.width/2/(p5.data.divisionValue-1);
@@ -108,7 +112,7 @@ export default (p5) => {
     p5.setup = function() {
         canvas = p5.createCanvas(0,0, p5.WEBGL)
         resizeCanvas()
-        initMesh()
+        // initMesh()
         // drawFrame()
     }
 
@@ -121,12 +125,12 @@ export default (p5) => {
     p5.draw = function() {
         if(p5.data && p5.data !== prevData) {
             initMesh()
-            drawFrame()
+            // drawFrame()
             prevData = p5.data
         }
  
         // p5.rotateY(p5.TWO_PI / p5.millis() * 10000)
-        // drawFrame()
+        drawFrame()
     }
 
     function drawFrame() {
