@@ -125,12 +125,12 @@ export default (p5) => {
     p5.draw = function() {
         if(p5.data && p5.data !== prevData) {
             initMesh()
-            // drawFrame()
+            drawFrame()
             prevData = p5.data
         }
  
         // p5.rotateY(p5.TWO_PI / p5.millis() * 10000)
-        drawFrame()
+        // drawFrame()
     }
 
     function drawFrame() {
