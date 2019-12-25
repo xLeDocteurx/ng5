@@ -97,6 +97,8 @@ class White extends Component {
                     <div className="col s9">
         
                         <h3>Determined Random</h3>
+                        <code>getWhiteNoise()</code>
+                        {this.state.noiseGenerator.getWhiteNoise()}<br/>
                         <code>getWhiteNoise(1)</code>
                         {this.state.noiseGenerator.getWhiteNoise(1)}<br/>
                         <code>getWhiteNoise(1, 2)</code>
