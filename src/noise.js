@@ -17,7 +17,7 @@ class NoiseGenerator {
     this.NOISE_YWRAP = 1 << this.NOISE_YWRAPB
     this.NOISE_ZWRAPB = 8
     this.NOISE_ZWRAP = 1 << this.NOISE_ZWRAPB
-    this.NOISE_SIZE = 4095
+    this.NOISE_SIZE = props && props.noiseSize ? props.noiseSize : 4095
 
     // Linear Congruential Generator
     // Variant of a Lehman Generator
