@@ -2,7 +2,8 @@
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xLeDocteurx/png5/pulls)
 [![GitHub](https://img.shields.io/github/license/xLeDocteurx/png5)](https://github.com/xLeDocteurx/png5/pulls)
 
-# A multidimensional noise engine for every situation and one day for every noise type
+# A multidimensional noise engine for every situation
+( And one day for every noise type )
 png5 stands for perlin noise generator but it does not provide only perlin noise !
 
 - Undetermined random
