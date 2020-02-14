@@ -1,16 +1,17 @@
-function isValidNoiseInput(input) {
+function isValidNoiseInput(input: any): boolean {
 	if(isNaN(input) || typeof(input) === 'undefined' || input === null) {
 		return false
 	}
 	return true
 }
 
-function getRandomSeed() {
+function getRandomSeed(): number {
 	return Math.round(Math.random() * 9999)
 }
 
-function normalizeSeed(seed, m) {
-	if(seed == null || seed == '') {
+function normalizeSeed(seed: number | string, m: number): number {
+    // pick a random seed if seed is undefined or null
+	if(seed == null) {
 		return getRandomSeed() * m
 	}
 	if(typeof(seed) != 'number') {
@@ -25,30 +26,33 @@ function normalizeSeed(seed, m) {
 	return seed
 }
 
-function computeSeed(seed) {
-    // pick a random seed if seed is undefined or null
+function computeSeed(seed: number): number {
     // the >>> 0 casts the seed to an unsigned 32-bit integer
 	return seed >>> 0
 }
 
-function makePositive(input) {
+function makePositive(input: number): number {
 	return input < 0 ? -input : input
 }
 
-function fract(input) {
-	// input = this.makePositive(input)
+function fract(input: number): number {
+	input = this.makePositive(input)
 	const integer = Math.floor(input)
 	const decimal = input - integer
 	return decimal
 }
 
+function smoothStep(f: number): number {
+	return f * f * (3.0 - 2.0 * f)
+}
+
 // When x is 1, b is returned
 // Linear interpolation is the fastest but has most jagged output
-function interpolateLinear(a, b, x) {
+function interpolateLinear(a: number, b: number, x: number): number {
     return a * (1 - x) + b * x;
 }
 
-function interpolateCubic(a, b, x) {
+function interpolateCubic(a: number, b: number, x: number): number {
   	return a * (1 - smoothStep(x)) + b * smoothStep(x)
 }
 
@@ -61,30 +65,26 @@ function interpolateCubic(a, b, x) {
 // }
 
 // Slightly slower than linear interpolation but much smoother
-function interpolateCosine(a, b, x) {
+function interpolateCosine(a: number, b: number, x: number): number {
     const ft = x * Math.PI;
     const f = (1 - Math.cos(ft)) * 0.5;
     return a * (1 - f) + b * f;
 }
 
-function smoothStep(f) {
-	return f * f * (3.0 - 2.0 * f)
-}
-
-function scaled_cosine(i) {
+function scaled_cosine(i: number): number {
 	return 0.5 * (1.0 - Math.cos(i * Math.PI))
 }
 
 export default {
 	isValidNoiseInput,
-	normalizeSeed,
 	getRandomSeed,
+	normalizeSeed,
 	computeSeed,
 	makePositive,
 	fract,
+	smoothStep,
 	interpolateLinear,
 	interpolateCubic,
 	interpolateCosine,
-	smoothStep,
 	scaled_cosine,
 }

@@ -170,11 +170,11 @@ class White extends Component {
                             </div>
                         </div>
 
-                        <div className="card grey lighten-4">
+                        {/* <div className="card grey lighten-4">
                             <div className="card-content">
                                 <button onClick={this.handleStart}>Launch simulation</button>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
     
                     <div className="col s9">

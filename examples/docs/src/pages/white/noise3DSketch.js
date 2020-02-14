@@ -1,6 +1,6 @@
 export default (p5) => {
     let canvas = null
-    const scale = 5
+    const scale = 0.5
     const noiseHeight = 100
 
     let prevData = null
@@ -33,38 +33,40 @@ export default (p5) => {
             const farestVertex = v1.dist(v2);
 
             // const originVertex = p5.createVector(-size/2,-size/2,size/2);
-            const sliceSize = size/(resolution-1);
-            for(let x=0; x<(resolution-1); x++) {
-                for(let y=0; y<(resolution-1); y++) {
 
-                    const ax = x*sliceSize;
-                    const ay = y*sliceSize;
+            // const sliceSize = p5.width/2/(p5.data.divisionValue-1);
+            const sliceSize = size/(resolution-1);
+            for(let x=0; x<size; x += sliceSize) {
+                for(let y=0; y<size; y+= sliceSize) {
+
+                    const ax = x;
+                    const ay = y;
                     const az = p5.data.getNoise(x * p5.data.noiseScaleValue * scale, y * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
                     // const az = -noiseHeight / 2
                     this.verteces.push(this.makeVertexForAFace(ax,ay,az));
-                    const bx = (x+1)*sliceSize;
-                    const by = (y+1)*sliceSize;
-                    const bz = p5.data.getNoise((x + 1) * p5.data.noiseScaleValue * scale, (y + 1) * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
+                    const bx = (x + sliceSize);
+                    const by = (y + sliceSize);
+                    const bz = p5.data.getNoise((x + sliceSize) * p5.data.noiseScaleValue * scale, (y + sliceSize) * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
                     // const bz = -noiseHeight / 2
                     this.verteces.push(this.makeVertexForAFace(bx,by,bz));
-                    const cx = x*sliceSize;
-                    const cy = (y+1)*sliceSize;
-                    const cz = p5.data.getNoise(x * p5.data.noiseScaleValue * scale, (y + 1) * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
+                    const cx = x;
+                    const cy = (y + sliceSize);
+                    const cz = p5.data.getNoise(x * p5.data.noiseScaleValue * scale, (y + sliceSize) * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
                     // const cz = -noiseHeight / 2
                     this.verteces.push(this.makeVertexForAFace(cx,cy,cz));
-                    const dx = x*sliceSize;
-                    const dy = y*sliceSize;
+                    const dx = x;
+                    const dy = y;
                     const dz = p5.data.getNoise(x * p5.data.noiseScaleValue * scale, y * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
                     // const dz = -noiseHeight / 2
                     this.verteces.push(this.makeVertexForAFace(dx,dy,dz));
-                    const ex = (x+1)*sliceSize;
-                    const ey = y*sliceSize;
-                    const ez = p5.data.getNoise((x + 1) * p5.data.noiseScaleValue * scale, y * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
+                    const ex = (x + sliceSize);
+                    const ey = y;
+                    const ez = p5.data.getNoise((x + sliceSize) * p5.data.noiseScaleValue * scale, y * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
                     // const ez = -noiseHeight / 2
                     this.verteces.push(this.makeVertexForAFace(ex,ey,ez));
-                    const fx = (x+1)*sliceSize;
-                    const fy = (y+1)*sliceSize;
-                    const fz = p5.data.getNoise((x + 1) * p5.data.noiseScaleValue * scale, (y + 1) * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
+                    const fx = (x + sliceSize);
+                    const fy = (y + sliceSize);
+                    const fz = p5.data.getNoise((x + sliceSize) * p5.data.noiseScaleValue * scale, (y + sliceSize) * p5.data.noiseScaleValue * scale) * noiseHeight - (noiseHeight / 2);
                     // const fz = -noiseHeight / 2
                     this.verteces.push(this.makeVertexForAFace(fx,fy,fz));
                 }
@@ -88,8 +90,6 @@ export default (p5) => {
             p5.ambientMaterial(250);
             
             p5.push();
-
-            const sliceSize = p5.width/2/(p5.data.divisionValue-1);
 
             for(let i=0;i<this.verteces.length;i+=3){
                 const vert_A = this.verteces[i];
@@ -139,7 +139,8 @@ export default (p5) => {
         p5.background(51)
 
         p5.rotateX(p5.PI / 3)
-        p5.translate(-p5.width/2/2, -p5.width/2/2, 0)
+        // p5.translate(-p5.width/2/2, -p5.width/2/2, 0)
+        p5.translate(-p5.width/2/2, -p5.height/2, 0)
         // p5.translate(-p5.width/2/2, -p5.width/2/2, p5.height/2/2/2)
 
         mesh.draw()

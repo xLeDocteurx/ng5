@@ -27,12 +27,18 @@ function App() {
       M.AutoInit()
   }, [])
   const links = [
+    {to: "/fbm", name: "Fractal Brownian Motion"},
     {to: "/random", name: "Random"},
     {to: "/white-noise", name: "White Noise"},
     // {to: "/pink-noise", name: "Pink Noise"},
     // {to: "/simplex-noise", name: "Simplex Noise"},
     {to: "/perlin-noise", name: "Perlin Noise"},
+    {to: "/voronoise", name: "Voronoise"},
     // {to: "/brownian-noise", name: "Brownian Noise"},
+
+    // {to: "/bellow-noise", name: "Bellow Noise"},
+    // {to: "/ridged-noise", name: "Ridged Noise"},
+    // {to: "/worley-noise", name: "Worley Noise"},
 
     // {to: "/diamond-square", name: "Diamond square"},
     // {to: "/power-law-noise", name: "Power-law noise"},
@@ -78,6 +84,9 @@ function App() {
         </header>
 
         <Switch>
+          <Route path={urlPrefix + "/fbm"}>
+            <h1>Fractal Brownian Motion</h1>
+          </Route>
           <Route path={urlPrefix + "/random"}>
             <Random />
           </Route>
@@ -93,8 +102,22 @@ function App() {
           <Route path={urlPrefix + "/perlin-noise"}>
             <Perlin />
           </Route>
+          <Route path={urlPrefix + "/voronoise"}>
+            <h1>Voronoise</h1>
+          </Route>
           <Route path={urlPrefix + "/brownian-noise"}>
             <h1>Brownian Noise</h1>
+          </Route>
+
+
+          <Route path={urlPrefix + "/bellow-noise"}>
+            <h1>Bellow Noise</h1>
+          </Route>
+          <Route path={urlPrefix + "/ridged-noise"}>
+            <h1>Ridged Noise</h1>
+          </Route>
+          <Route path={urlPrefix + "/worley-noise"}>
+            <h1>Worley Noise</h1>
           </Route>
 
           <Route path={urlPrefix + "/diamond-square"}>

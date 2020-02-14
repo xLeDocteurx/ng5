@@ -11,9 +11,33 @@ class Vect2 {
 		return Object.assign({}, this)
 	}
 
+	get integer() {
+		const posX = this.x < 0 ? -this.x : this.x
+		const posY = this.y < 0 ? -this.y : this.y
+		const integerX = Math.floor(posX)
+		const integerY = Math.floor(posY)
+		return new Vect2(integerX, integerY)
+	}
+
+	get fract() {
+		const posX = this.x < 0 ? -this.x : this.x
+		const posY = this.y < 0 ? -this.y : this.y
+		const decimalX = posX - Math.floor(posX)
+		const decimalY = posY - Math.floor(posY)
+		return new Vect2(decimalX, decimalY)
+	}
+
 	set(x, y) {
 		this.x = x
 		this.y = y
+	}
+
+	set setMagnitude(mag) {
+		this.magnitude = mag
+	}
+
+	set setHeading(head) {
+		this.heading = head
 	}
 
 	static add(vector1, vector2) {
@@ -101,10 +125,38 @@ class Vect3 {
 		return Object.assign({}, this)
 	}
 
+	get integer() {
+		const posX = this.x < 0 ? -this.x : this.x
+		const posY = this.y < 0 ? -this.y : this.y
+		const posZ = this.z < 0 ? -this.z : this.z
+		const integerX = Math.floor(posX)
+		const integerY = Math.floor(posY)
+		const integerZ = Math.floor(posZ)
+		return new Vect3(integerX, integerY, integerZ)
+	}
+
+	get fract() {
+		const posX = this.x < 0 ? -this.x : this.x
+		const posY = this.y < 0 ? -this.y : this.y
+		const posZ = this.z < 0 ? -this.z : this.z
+		const decimalX = posX - Math.floor(posX)
+		const decimalY = posY - Math.floor(posY)
+		const decimalZ = posZ - Math.floor(posZ)
+		return new Vect3(decimalX, decimalY, decimalZ)
+	}
+
 	set(x, y, z) {
 		this.x = x
 		this.y = y
 		this.z = z
+	}
+
+	set setMagnitude(mag) {
+		this.magnitude = mag
+	}
+
+	set setHeading(head) {
+		this.heading = head
 	}
 
 	static add(vector1, vector2) {
@@ -112,9 +164,9 @@ class Vect3 {
 	}
 
 	add(otherVector) {
-		vector1.x += vector2.x
-		vector1.y += vector2.y
-		vector1.z += vector2.z
+		this.x += otherVector.x
+		this.y += otherVector.y
+		this.z += otherVector.z
 		return this
 	}
 
@@ -123,9 +175,9 @@ class Vect3 {
 	}
 
 	sub(otherVector) {
-		vector1.x -= vector2.x
-		vector1.y -= vector2.y
-		vector1.z -= vector2.z
+		this.x -= otherVector.x
+		this.y -= otherVector.y
+		this.z -= otherVector.z
 		return this
 	}
 
@@ -184,6 +236,30 @@ class Vect4 {
 		return Object.assign({}, this)
 	}
 
+	get integer() {
+		const posX = this.x < 0 ? -this.x : this.x
+		const posY = this.y < 0 ? -this.y : this.y
+		const posZ = this.z < 0 ? -this.z : this.z
+		const posW = this.w < 0 ? -this.w : this.w
+		const integerX = Math.floor(posX)
+		const integerY = Math.floor(posY)
+		const integerZ = Math.floor(posZ)
+		const integerW = Math.floor(posW)
+		return new Vect3(integerX, integerY, integerZ, integerW)
+	}
+
+	get fract() {
+		const posX = this.x < 0 ? -this.x : this.x
+		const posY = this.y < 0 ? -this.y : this.y
+		const posZ = this.z < 0 ? -this.z : this.z
+		const posW = this.w < 0 ? -this.w : this.w
+		const decimalX = posX - Math.floor(posX)
+		const decimalY = posY - Math.floor(posY)
+		const decimalZ = posZ - Math.floor(posZ)
+		const decimalW = posW - Math.floor(posW)
+		return new Vect3(decimalX, decimalY, decimalZ, decimalW)
+	}
+
 	set(x, y, z, w) {
 		this.x = x
 		this.y = y
@@ -191,15 +267,23 @@ class Vect4 {
 		this.w = w
 	}
 
+	set setMagnitude(mag) {
+		this.magnitude = mag
+	}
+
+	set setHeading(head) {
+		this.heading = head
+	}
+
 	static add(vector1, vector2) {
 		return new Vect4(vector1.x + vector2.x, vector1.y + vector2.y, vector1.z + vector2.z, vector1.w + vector2.w)
 	}
 
 	add(otherVector) {
-		vector1.x += vector2.x
-		vector1.y += vector2.y
-		vector1.z += vector2.z
-		vector1.w += vector2.w
+		this.x += otherVector.x
+		this.y += otherVector.y
+		this.z += otherVector.z
+		this.w += otherVector.w
 		return this
 	}
 
@@ -208,10 +292,10 @@ class Vect4 {
 	}
 
 	sub(otherVector) {
-		vector1.x -= vector2.x
-		vector1.y -= vector2.y
-		vector1.z -= vector2.z
-		vector1.w -= vector2.w
+		this.x -= otherVector.x
+		this.y -= otherVector.y
+		this.z -= otherVector.z
+		this.w -= otherVector.w
 		return this
 	}
 

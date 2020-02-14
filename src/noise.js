@@ -8,6 +8,9 @@ class NoiseGenerator {
   constructor(props) {
 
     // GLOBAL VARIABLES
+    this.sineAmplitude = 100000.0
+    this.referenceVector = new vectors.Vect3(12.9898,78.233, 91.93432)
+
     this.seed = null
     this.computedSeed = null
 
@@ -67,151 +70,101 @@ class NoiseGenerator {
     y = utils.makePositive(y)
     z = utils.makePositive(z)
 
-    const output = utils.fract(Math.sin(x)*100000.0)
+    const output = utils.fract(Math.sin(x)*this.sineAmplitude*(this.computedSeed ? this.computedSeed : utils.getRandomSeed()))
     return output
   }
 
+  // dot(vector1, vector2) {
+  //   return vector1.x * vector2.x + vector1.y * vector2.y
+  // }
+
   // WHITE NOISE
   getWhiteNoise(x, y, z) {
-    x = x || Math.random()
-    y = y || 0
-    z = z || 0
 
-    // let vector = null
-    // if(x && y && z) {
-    //   vector  = new vectors.Vect3(x, y, z)
-    // } else if (x && y) {
-    //   vector = new vectors.Vect2(x, y)
-    // } else if (x) {
-    //   vector = this.random()
-    // } else {
-    //   vector = 'WTF'
-    // }
-    // console.log('vector : ', vector)
+    x = utils.isValidNoiseInput(x) ? x : this.random()
+    y = utils.isValidNoiseInput(y) ? y : 0
+    z = utils.isValidNoiseInput(z) ? z : 0
 
-    var xi = Math.floor(utils.makePositive(x))
-    var yi = Math.floor(utils.makePositive(y))
-    var zi = Math.floor(utils.makePositive(z))
-    var xf = utils.fract(x)
-    var yf = utils.fract(y)
-    var zf = utils.fract(z)
-
-    var rxf, ryf
-
-    if (this.noise == null) {
-      this.noise = new Array(this.NOISE_SIZE + 1)
-      for (let i = 0; i < this.NOISE_SIZE + 1; i++) {
-        // this.noise[i] = this.random()
-        this.noise[i] = Math.random()
-      }
-    }
-
-    var r = 0
-    var ampl = 0.5
-
-    var n1, n2, n3
-
-    var of = xi + (yi << this.NOISE_YWRAPB) + (zi << this.NOISE_ZWRAPB)
-
-    rxf = utils.scaled_cosine(xf)
-    ryf = utils.scaled_cosine(yf)
-
-    n1 = this.noise[of & this.NOISE_SIZE]
-    n2 = this.noise[(of + this.NOISE_YWRAP) & this.NOISE_SIZE]
-    of += this.NOISE_ZWRAP
-    n3 = this.noise[(of + this.NOISE_YWRAP) & this.NOISE_SIZE]
-
-    n1 += utils.scaled_cosine(zf) * (n2 - n1)
-
-    // r += n1 * ampl
-    r += n1
-    
-    return r
-
-  }
-
-  setWhiteNoiseSeed(input) {
-
-    // this.white = new Array(this.NOISE_SIZE + 1)
-    // for (var i = 0; i < this.NOISE_SIZE + 1; i++) {
-    //   this.white[i] = lcg.rand()
-    // }
+    return utils.fract(
+      Math.sin(
+        vectors.Vect3.dot(
+          new vectors.Vect3(x,y,z),
+          this.referenceVector
+        )
+      )
+      // *43758.5453123
+      *this.sineAmplitude*(this.computedSeed ? this.computedSeed : utils.getRandomSeed())
+    );
 
   }
 
   // PERLIN NOISE
   getPerlinNoise(x, y, z) {
-    y = y || 0
-    z = z || 0
 
-    if (this.noise == null) {
-      this.noise = new Array(this.NOISE_SIZE + 1)
-      for (var i = 0; i < this.NOISE_SIZE + 1; i++) {
-        this.noise[i] = Math.random()
-      }
+    x = utils.isValidNoiseInput(x) ? x : this.random()
+    y = utils.isValidNoiseInput(y) ? y : 0
+    z = utils.isValidNoiseInput(z) ? z : 0
+    // const xi = Math.floor(x)
+    // const xf = utils.fract(x)
+    // const yi = Math.floor(y)
+    // const yf = utils.fract(y)
+    // const zi = Math.floor(z)
+    // const zf = utils.fract(z)
+
+    let r = 0
+    // let r = []
+    let ampl = 0.5
+
+    for(let o = 0; o < this.perlin_octaves; o++) {
+
+      const octaveAmplitude = o > 0 ? Math.pow(this.perlin_amp_falloff, o) : 1
+      // const octaveScale = o > 0 ? 1 / (o * 2) : 1
+      // const octaveScale = o > 0 ? Math.pow(0.5, o) : 1
+      const octaveScale = o > 0 ? Math.pow(2, o) : 1
+
+      const vector = new vectors.Vect3(x * octaveScale,y * octaveScale,z * octaveScale)
+      const vectorInteger = vector.integer
+      const vectorFract = vector.fract
+
+      // const os = o > 0 ? Math.pow(2, o) : 1
+      // console.log('os', os)
+      // const octaveScale = 1
+
+      const randA = this.getWhiteNoise(vectorInteger.x, vectorInteger.y, vectorInteger.z)
+      const randB = this.getWhiteNoise(vectorInteger.x+1, vectorInteger.y, vectorInteger.z)
+      const randC = this.getWhiteNoise(vectorInteger.x, vectorInteger.y+1, vectorInteger.z)
+      const randD = this.getWhiteNoise(vectorInteger.x+1, vectorInteger.y+1, vectorInteger.z)
+      const randE = this.getWhiteNoise(vectorInteger.x, vectorInteger.y, vectorInteger.z+1)
+      const randF = this.getWhiteNoise(vectorInteger.x+1, vectorInteger.y, vectorInteger.z+1)
+      const randG = this.getWhiteNoise(vectorInteger.x, vectorInteger.y+1, vectorInteger.z+1)
+      const randH = this.getWhiteNoise(vectorInteger.x+1, vectorInteger.y+1, vectorInteger.z+1)
+
+      const lerpABCDEFGH = utils.interpolateCubic(
+        utils.interpolateCubic(
+          utils.interpolateCubic(randA, randB, vectorFract.x),
+          utils.interpolateCubic(randC, randD, vectorFract.x),
+          vectorFract.y
+        ),
+        utils.interpolateCubic(
+          utils.interpolateCubic(randE, randF, vectorFract.x),
+          utils.interpolateCubic(randG, randH, vectorFract.x),
+          vectorFract.y
+        ),
+        vectorFract.z
+      )
+
+      r = o > 0 ? r * (1 - lerpABCDEFGH * octaveAmplitude / octaveScale) : lerpABCDEFGH
+      // r = o > 0 ? r + (1 - lerpABCDEFGH * octaveAmplitude / octaveScale) / o : lerpABCDEFGH
+      // r.push(lerpABCDEFGH * octaveAmplitude / octaveScale)
     }
 
-    x = utils.makePositive(x)
-    y = utils.makePositive(y)
-    z = utils.makePositive(z)
-
-    var xi = Math.floor(x),
-      yi = Math.floor(y),
-      zi = Math.floor(z)
-    var xf = x - xi
-    var yf = y - yi
-    var zf = z - zi
-    var rxf, ryf
-
-    var r = 0
-    var ampl = 0.5
-
-    var n1, n2, n3
-
-    for (var o = 0; o < this.perlin_octaves; o++) {
-      var of = xi + (yi << this.NOISE_YWRAPB) + (zi << this.NOISE_ZWRAPB)
-
-      rxf = utils.scaled_cosine(xf)
-      ryf = utils.scaled_cosine(yf)
-
-      n1 = this.noise[of & this.NOISE_SIZE]
-      n1 += rxf * (this.noise[(of + 1) & this.NOISE_SIZE] - n1)
-      n2 = this.noise[(of + this.NOISE_YWRAP) & this.NOISE_SIZE]
-      n2 += rxf * (this.noise[(of + this.NOISE_YWRAP + 1) & this.NOISE_SIZE] - n2)
-      n1 += ryf * (n2 - n1)
-
-      of += this.NOISE_ZWRAP
-      n2 = this.noise[of & this.NOISE_SIZE]
-      n2 += rxf * (this.noise[(of + 1) & this.NOISE_SIZE] - n2)
-      n3 = this.noise[(of + this.NOISE_YWRAP) & this.NOISE_SIZE]
-      n3 += rxf * (this.noise[(of + this.NOISE_YWRAP + 1) & this.NOISE_SIZE] - n3)
-      n2 += ryf * (n3 - n2)
-
-      n1 += utils.scaled_cosine(zf) * (n2 - n1)
-
-      r += n1 * ampl
-      ampl *= this.perlin_amp_falloff
-      xi <<= 1
-      xf *= 2
-      yi <<= 1
-      yf *= 2
-      zi <<= 1
-      zf *= 2
-
-      if (xf >= 1.0) {
-        xi++
-        xf--
-      }
-      if (yf >= 1.0) {
-        yi++
-        yf--
-      }
-      if (zf >= 1.0) {
-        zi++
-        zf--
-      }
-    }
+    // return lerpABCDEFGH
     return r
+    // let avarageResult = r.reduce((a, b) => {
+    //   return a + b
+    // }, 0)
+    // avarageResult /= this.perlin_octaves
+    // return avarageResult
   }
 
   setPerlinNoiseDetail(lod, falloff) {
@@ -223,14 +176,47 @@ class NoiseGenerator {
     }
   }
 
+  // // Draft
+  // // u est la valeur d'interpolation entre le bruit de perlin et la forme de voronoi
+  // getVoronoise(x, y, z, u, v) {
+  //   x = utils.isValidNoiseInput(x) ? x : this.random()
+  //   y = utils.isValidNoiseInput(y) ? y : 0
+  //   z = utils.isValidNoiseInput(z) ? z : 0
+
+  //   u = u ? u : 0.5
+  //   v = v ? v : 0.5
+
+  //   const p = Math.floor(x)
+  //   const f = utils.fract(x)
+
+  //   const k = 1.0 + 63.0 * Math.pow(1.0-v, 4.0)
+  //   const va = 0.0
+  //   const wt = 0.0
+  //   for(let j=-2; j<=2; j++) {
+  //     for(let i=-2; i<=2; i++) {
+  //         // const g = new vectors.Vect2(Number(i), Number(j));
+  //         const g = new vectors.Vect2(i, j)
+  //         const o = new vectors.Vect3(u,u,1.0).dot(hash3( p + g ))
+  //         const r = g.sub(f).add(o)
+  //         const d = r.dot(r)
+  //         const w = Math.pow(1.0 - utils.smoothStep(0.0, 1.414, Math.sqrt(d)), k)
+  //         va += w*o.z
+  //         wt += w
+  //     }
+  //   }
+
+  //   return va/wt
+  // }
+
+  // setVoronoiseDetail() {
+
+  // }
+
   setNoiseSeed(seed) {
     this.seed = seed
-    seed = utils.normalizeSeed(seed)
 
-
-    // pick a random seed if seed is undefined or null
-    // the >>> 0 casts the seed to an unsigned 32-bit integer
-    this.computedSeed = this.lcg.z = (seed == null ? Math.random() * this.lcg.m : seed) >>> 0
+    seed = utils.normalizeSeed(seed, this.lcg.m)
+    this.computedSeed = this.lcg.z = utils.computeSeed(seed)
 
     this.noise = new Array(this.NOISE_SIZE + 1)
     for (var i = 0; i < this.NOISE_SIZE + 1; i++) {

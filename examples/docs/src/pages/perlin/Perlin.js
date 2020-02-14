@@ -24,6 +24,7 @@ class Perlin extends Component {
 
             seedValue: 'seed',
             lodValue: 4,
+            // lodValue: 1,
             falloffValue: 0.5,
             
             noise1DSketch: noise1DSketch,
@@ -96,14 +97,14 @@ class Perlin extends Component {
                                 divisions ({this.state.divisionValue}) :
                                 <input type="range" name="divisionValue" 
                                 value={this.state.divisionValue} onChange={this.handleChange}
-                                min="2" max="192" step="1" />
+                                min="2" max="128" step="1" />
                             </label>
-                            <label>
+                            {/* <label>
                                 Offset ({this.state.offsetValue}) :
                                 <input type="range" name="offsetValue" 
                                 value={this.state.offsetValue} onChange={this.handleChange}
                                 min="-1" max="1" step="0.01" />
-                            </label>
+                            </label> */}
                         </div>
 
                         <div className="card-panel grey lighten-4">
@@ -134,10 +135,10 @@ class Perlin extends Component {
                         {this.state.noiseGenerator.getPerlinNoise()}<br/>
                         <code>getPerlinNoise(1)</code>
                         {this.state.noiseGenerator.getPerlinNoise(1)}<br/>
-                        <code>getWhiteNoise(1, 2)</code>
-                        {this.state.noiseGenerator.getWhiteNoise(1, 2)}<br/>
-                        <code>getWhiteNoise(1, 2, 3)</code>
-                        {this.state.noiseGenerator.getWhiteNoise(1, 2, 3)}<br/>
+                        <code>getPerlinNoise(1, 2)</code>
+                        {this.state.noiseGenerator.getPerlinNoise(1, 2)}<br/>
+                        <code>getPerlinNoise(1, 2, 3)</code>
+                        {this.state.noiseGenerator.getPerlinNoise(1, 2, 3)}<br/>
                         <code>getPerlinNoise(45.7098)</code>
                         {this.state.noiseGenerator.getPerlinNoise(45.7098)}<br/>
                         <code>getPerlinNoise(-45.7098)</code>
@@ -163,7 +164,7 @@ class Perlin extends Component {
                                 getNoise: (x,y,z) => this.state.noiseGenerator.getPerlinNoise(x,y,z)
                             }}
                         />
-                        <h3>3D noise</h3>
+                        <h3>2D noise in 3D</h3>
                         <P5 sketch={this.state.noise3DSketch} 
                             data={{
                                 offsetValue: this.state.offsetValue,

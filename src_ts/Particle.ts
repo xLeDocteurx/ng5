@@ -1,4 +1,4 @@
-class Particle {
+export default class Particle {
 
 	// constructor(i, pos, vel) {
 	// 	// this.position = p5.createVector(pos.x, pos.y)
@@ -37,5 +37,3 @@ class Particle {
 	// 	p5.point(this.position.x, this.position.y)
 	// }
 }
-
-export default Particle
